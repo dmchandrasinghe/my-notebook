@@ -1,0 +1,95 @@
+.history-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,.35);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.history-panel {
+  width: 640px;
+  max-width: 92vw;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,.18);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-toolbar-bg);
+}
+
+.history-title { font-size: 14px; font-weight: 600; }
+.history-header button { font-size: 16px; color: var(--color-text-secondary); }
+.history-header button:hover { color: var(--color-text-primary); }
+
+.history-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.history-list {
+  width: 260px;
+  min-width: 200px;
+  overflow-y: auto;
+  list-style: none;
+  border-right: 1px solid var(--color-border);
+}
+
+.history-loading { padding: 12px; color: var(--color-text-secondary); font-size: 13px; }
+
+.history-entry {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background .1s;
+}
+
+.history-entry:hover { background: var(--color-page-hover); }
+.history-entry--active { background: var(--color-page-selected); }
+
+.he-msg { font-size: 12px; display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.he-meta { font-size: 11px; color: var(--color-text-secondary); display: block; margin-top: 2px; }
+
+.history-diff {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.diff-actions {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-toolbar-bg);
+}
+
+.revert-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--color-sync-err);
+  font-weight: 600;
+  transition: background .1s;
+}
+
+.revert-btn:hover { background: #fef2f2; }
+.revert-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.diff-content {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}

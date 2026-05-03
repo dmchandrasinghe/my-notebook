@@ -1,0 +1,45 @@
+name: Auto PR to dev
+
+on:
+  push:
+    # Run for every branch EXCEPT main and dev
+    branches-ignore:
+      - main
+      - dev
+
+concurrency:
+  group: auto-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    name: Open / update PR → dev
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Create the PR if it does not already exist.
+      # If a PR already exists for this branch the command exits non-zero,
+      # so we swallow that with `|| true` to keep the job green.
+      - name: Create Pull Request targeting dev
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          PR_TITLE="feat: ${BRANCH} → dev"
+          PR_BODY="Automated pull request opened by GitHub Actions.\n\n**Branch:** \`${BRANCH}\`\n**Commit:** ${{ github.sha }}\n\n> Merge this PR into \`dev\` after review."
+
+          gh pr create \
+            --base dev \
+            --head "${BRANCH}" \
+            --title "${PR_TITLE}" \
+            --body "$(printf '%b' "${PR_BODY}")" \
+            --repo "${{ github.repository }}" \
+          || echo "Pull request already exists for branch '${BRANCH}' — skipping."

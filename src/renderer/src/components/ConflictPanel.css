@@ -1,0 +1,90 @@
+.conflict-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,.35);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.conflict-panel {
+  width: 640px;
+  max-width: 92vw;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,.18);
+}
+
+.conflict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-toolbar-bg);
+}
+
+.conflict-title { font-size: 14px; font-weight: 600; }
+.conflict-header button { font-size: 16px; color: var(--color-text-secondary); }
+.conflict-header button:hover { color: var(--color-text-primary); }
+
+.conflict-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.conflict-list {
+  width: 260px;
+  min-width: 200px;
+  overflow-y: auto;
+  list-style: none;
+  border-right: 1px solid var(--color-border);
+}
+
+.conflict-empty { padding: 12px; color: var(--color-text-secondary); font-size: 13px; }
+
+.conflict-entry {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background .1s;
+}
+
+.conflict-entry:hover { background: var(--color-page-hover); }
+.conflict-entry--active { background: var(--color-page-selected); }
+
+.cb-file { font-size: 12px; font-weight: 600; display: block; }
+.cb-meta { font-size: 11px; color: var(--color-text-secondary); display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.conflict-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.conflict-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 12px;
+  background: var(--color-toolbar-bg);
+}
+
+.cb-ts { color: var(--color-text-secondary); }
+
+.conflict-content {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: pre-wrap;
+  background: var(--color-page-bg);
+  margin: 0;
+}
