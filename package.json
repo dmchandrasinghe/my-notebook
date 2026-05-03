@@ -1,0 +1,79 @@
+{
+  "name": "my-notebook",
+  "version": "0.1.0",
+  "description": "Turn any GitHub repository into a structured, visual notebook",
+  "main": "./out/main/index.js",
+  "author": "MY-NOTEBOOK",
+  "homepage": ".",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "dist": "npm run build && electron-builder --win --x64",
+    "dist:dir": "npm run build && electron-builder --win --x64 --dir",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.web.json"
+  },
+  "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0",
+    "diff2html": "^3.4.48",
+    "electron-log": "^5.2.4",
+    "lunr": "^2.3.9",
+    "markdown-it": "^14.1.0",
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config-ts": "^3.0.0",
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@monaco-editor/react": "^4.7.0",
+    "@types/lunr": "^2.3.7",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^3.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.1",
+    "zustand": "^5.0.3"
+  },
+  "build": {
+    "appId": "com.mynotebook.app",
+    "productName": "MY-NOTEBOOK",
+    "copyright": "Copyright © 2025-2026 MY-NOTEBOOK",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "resources"
+    },
+    "files": [
+      "out/**/*",
+      "!out/**/*.map"
+    ],
+    "extraMetadata": {
+      "main": "out/main/index.js"
+    },
+    "win": {
+      "icon": "resources/icon.png",
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MY-NOTEBOOK"
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.notebook-list {
+  width: 180px;
+  min-width: 160px;
+  background: var(--color-nb-bg);
+  color: var(--color-nb-text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.nb-list-header {
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.nb-list-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .75;
+}
+
+.nb-items {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 4px 0;
+}
+
+.nb-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  margin: 1px 4px;
+  gap: 6px;
+  transition: background .12s;
+}
+
+.nb-item:hover { background: var(--color-nb-hover); }
+.nb-item--active { background: rgba(255,255,255,.25); }
+
+.nb-icon { font-size: 15px; flex-shrink: 0; }
+.nb-name { flex: 1; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+.nb-remove {
+  opacity: 0;
+  color: rgba(255,255,255,.7);
+  font-size: 16px;
+  line-height: 1;
+  transition: opacity .12s;
+}
+
+.nb-item:hover .nb-remove { opacity: 1; }
+.nb-remove:hover { color: #fff; }
+
+.nb-actions {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+
+.nb-action-btn {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 5px 8px;
+  font-size: 12px;
+  text-align: left;
+  transition: background .12s;
+}
+
+.nb-action-btn:hover { background: rgba(255,255,255,.25); }

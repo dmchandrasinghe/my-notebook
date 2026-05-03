@@ -1,0 +1,88 @@
+name: Release – Windows Installer
+
+on:
+  # Manual trigger from the Actions tab
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: 'Publish as draft release?'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['true', 'false']
+
+  # Trigger on version tags (v1.0.0) OR on push to main
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - main
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # Required to create GitHub Releases and upload assets
+
+jobs:
+  build-windows:
+    name: Build Windows Installer (.exe)
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Build Vite bundles, then package with electron-builder.
+      # CSC_IDENTITY_AUTO_DISCOVERY=false skips code-signing lookup so the
+      # build succeeds without a Windows code-signing certificate.
+      # --publish never prevents electron-builder from auto-publishing to
+      # GitHub Releases; the separate "Create GitHub Release" step below
+      # handles that only on version-tag pushes.
+      - name: Build & package Windows installer
+        run: npm run build && electron-builder --win --x64 --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      # Always upload installer as a workflow artifact so it can be
+      # downloaded directly from the Actions run page.
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: dist/*.exe
+          retention-days: 30
+          if-no-files-found: error
+
+      # Create a GitHub Release only when a version tag was pushed.
+      # On plain pushes to main the artifact above is enough.
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          DRAFT_FLAG=""
+          if [ "${{ github.event.inputs.draft }}" = "true" ]; then
+            DRAFT_FLAG="--draft"
+          fi
+          gh release create "${{ github.ref_name }}" \
+            dist/*.exe \
+            --title "MY-NOTEBOOK ${{ github.ref_name }}" \
+            --generate-notes \
+            $DRAFT_FLAG \
+            --repo "${{ github.repository }}"

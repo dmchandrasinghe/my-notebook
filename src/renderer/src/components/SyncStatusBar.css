@@ -1,0 +1,30 @@
+.sync-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 14px;
+  font-size: 12px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-toolbar-bg);
+  min-height: 26px;
+  color: var(--color-text-secondary);
+}
+
+.sync-bar--idle .sync-status-text { color: var(--color-sync-ok); }
+.sync-bar--syncing .sync-status-text { color: var(--color-sync-warn); }
+.sync-bar--conflict .sync-status-text { color: var(--color-sync-warn); }
+.sync-bar--error .sync-status-text { color: var(--color-sync-err); }
+
+.sync-status-text { flex: 1; }
+
+.sync-now-btn {
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text-secondary);
+  transition: background .1s;
+}
+
+.sync-now-btn:hover { background: var(--color-page-hover); }

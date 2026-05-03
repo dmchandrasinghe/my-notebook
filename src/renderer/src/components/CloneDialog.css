@@ -1,0 +1,95 @@
+.clone-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clone-dialog {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.24);
+  width: 460px;
+  max-width: 96vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.clone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.clone-title { font-size: 15px; font-weight: 700; }
+.clone-header button { font-size: 17px; color: var(--color-text-secondary); }
+.clone-header button:hover { color: var(--color-text-primary); }
+
+.clone-body {
+  padding: 18px 18px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.clone-label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.clone-input {
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  outline: none;
+  background: #fafafa;
+}
+
+.clone-input:focus { border-color: var(--color-nb-bg); background: #fff; }
+.clone-input:disabled { opacity: .6; }
+
+.clone-error { color: var(--color-sync-err); font-size: 12px; margin: 0; }
+.clone-progress { color: var(--color-text-secondary); font-size: 12px; margin: 0; }
+
+.clone-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-toolbar-bg);
+  border-radius: 0 0 8px 8px;
+}
+
+.clone-cancel-btn {
+  padding: 6px 16px;
+  font-size: 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  transition: background .1s;
+}
+
+.clone-cancel-btn:hover { background: var(--color-page-hover); }
+
+.clone-ok-btn {
+  padding: 6px 20px;
+  font-size: 13px;
+  background: var(--color-nb-bg);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: background .1s;
+}
+
+.clone-ok-btn:hover:not(:disabled) { background: #6a3f80; }
+.clone-ok-btn:disabled { opacity: .5; cursor: not-allowed; }

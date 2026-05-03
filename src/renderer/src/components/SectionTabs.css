@@ -1,0 +1,55 @@
+.section-tabs-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 6px;
+  background: var(--color-toolbar-bg);
+  border-bottom: 1px solid var(--color-border);
+  min-height: 36px;
+  overflow-x: auto;
+}
+
+.section-tab {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tab-color, var(--color-section-default));
+  border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  background: transparent;
+  white-space: nowrap;
+  transition: background .12s;
+}
+
+.section-tab:hover {
+  background: rgba(0,0,0,.06);
+}
+
+.section-tab--active {
+  background: var(--color-page-bg);
+  border-color: var(--color-border);
+  border-bottom-color: var(--color-page-bg);
+  color: var(--tab-color, var(--color-section-default));
+}
+
+.section-tab-input {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: #fff;
+  font-size: 13px;
+  outline: none;
+  width: 130px;
+}
+
+.section-add-btn {
+  padding: 4px 10px;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  opacity: .6;
+  align-self: center;
+  margin-left: 4px;
+}
+
+.section-add-btn:hover { opacity: 1; }
