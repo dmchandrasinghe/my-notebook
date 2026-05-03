@@ -28,7 +28,7 @@ export default function HistoryPanel(): React.ReactElement {
     if (!nb || !page) return
     setSelectedHash(hash)
     const diff = await window.api.getDiff(nb.localPath, page.relativePath, hash)
-    setDiffHtml(diff.html ?? diff.patch ?? '')
+    setDiffHtml(diff.unifiedDiff ?? '')
   }
 
   async function revert() {

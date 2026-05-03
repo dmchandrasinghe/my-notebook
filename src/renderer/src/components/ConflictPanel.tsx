@@ -41,16 +41,16 @@ export default function ConflictPanel(): React.ReactElement {
                 className={`conflict-entry ${selected?.backupPath === b.backupPath ? 'conflict-entry--active' : ''}`}
                 onClick={() => view(b)}
               >
-                <span className="cb-file">{b.originalPath.split('/').pop()}</span>
-                <span className="cb-meta">{b.timestamp} · {b.originalPath}</span>
+                <span className="cb-file">{b.pageName}</span>
+                <span className="cb-meta">{new Date(b.resolvedAt).toLocaleString()} · {b.relativePath}</span>
               </li>
             ))}
           </ul>
           {selected && (
             <div className="conflict-preview">
               <div className="conflict-preview-header">
-                <span>{selected.originalPath}</span>
-                <span className="cb-ts">{selected.timestamp}</span>
+                <span>{selected.relativePath}</span>
+                <span className="cb-ts">{new Date(selected.resolvedAt).toLocaleString()}</span>
               </div>
               <pre className="conflict-content">{content}</pre>
             </div>

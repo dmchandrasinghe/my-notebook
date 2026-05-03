@@ -13,10 +13,14 @@ export default function SyncStatusBar(): React.ReactElement {
 
   function label(): string {
     switch (status) {
-      case 'syncing': return '⟳ Syncing…'
+      case 'pulling':
+      case 'committing':
+      case 'pushing':
+      case 'startup_sync': return '⟳ Syncing…'
+      case 'local_changes': return '● Local changes'
       case 'conflict': return '⚠ Conflict resolved'
       case 'error': return '✕ Sync error'
-      case 'idle': return '✓ Up to date'
+      case 'synced': return '✓ Up to date'
       default: return ''
     }
   }

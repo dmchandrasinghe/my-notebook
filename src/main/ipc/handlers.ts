@@ -9,14 +9,13 @@ import type {
   CloneResult,
 } from '@shared/types'
 import { getNotebooks, upsertNotebook, removeNotebook } from '../services/metaStore'
-import { openRepo, cloneRepo, getStatus, commitAll, push, getCurrentBranch } from '../services/gitService'
+import { openRepo, cloneRepo, getStatus, commitAll, push } from '../services/gitService'
 import { getRepoTree, getPageContent, savePage, createPage, deletePage, renamePage, movePage, createSection, deleteSection, renameSection } from '../services/fileService'
 import { syncNow } from '../services/syncEngine'
 import { scheduleSync } from '../services/syncScheduler'
 import { getFileHistory, getFileVersion, getFileDiff, revertFile } from '../services/gitService'
 import { getConflictBackups, getBackupContent } from '../services/conflictHandler'
 import { search, buildIndex } from '../services/searchService'
-import { storeToken, getToken, deleteToken } from '../services/tokenStore'
 
 export function registerIpcHandlers(): void {
 

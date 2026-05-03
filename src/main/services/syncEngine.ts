@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import log from 'electron-log'
-import { getStatus, pullRebase, commitAll, push, abortRebase } from './gitService'
+import { getStatus, pullRebase, commitAll, push } from './gitService'
 import { autoResolveConflicts } from './conflictHandler'
 import { upsertNotebook, getNotebooks } from './metaStore'
 import { IPC } from '@shared/ipcChannels'

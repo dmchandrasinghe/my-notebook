@@ -75,7 +75,7 @@ const api = {
     ipcRenderer.invoke(IPC.GET_FILE_VERSION, repoPath, relativePath, hash),
   revertFile: (repoPath: string, relativePath: string, hash: string): Promise<FileOperationResult> =>
     ipcRenderer.invoke(IPC.REVERT_FILE, repoPath, relativePath, hash),
-  revert: (notebookId: string, repoPath: string, relativePath: string, hash: string): Promise<FileOperationResult> =>
+  revert: (_notebookId: string, repoPath: string, relativePath: string, hash: string): Promise<FileOperationResult> =>
     ipcRenderer.invoke(IPC.REVERT_FILE, repoPath, relativePath, hash),
   getDiff: (repoPath: string, relativePath: string, from: string, to?: string): Promise<DiffResult> =>
     ipcRenderer.invoke(IPC.GET_DIFF, repoPath, relativePath, from, to),
@@ -93,11 +93,11 @@ const api = {
   // ─── Events from main ──────────────────────────────────────────────────────
   onSyncStatusChanged: (cb: (nb: Notebook) => void) => {
     ipcRenderer.on(IPC.SYNC_STATUS_CHANGED, (_e, nb) => cb(nb))
-    return () => ipcRenderer.removeAllListeners(IPC.SYNC_STATUS_CHANGED)
+    return () => { ipcRenderer.removeAllListeners(IPC.SYNC_STATUS_CHANGED) }
   },
   onConflictResolved: (cb: (backup: ConflictBackup) => void) => {
     ipcRenderer.on(IPC.CONFLICT_RESOLVED, (_e, backup) => cb(backup))
-    return () => ipcRenderer.removeAllListeners(IPC.CONFLICT_RESOLVED)
+    return () => { ipcRenderer.removeAllListeners(IPC.CONFLICT_RESOLVED) }
   },
   onStartupSyncComplete: (cb: () => void) => {
     ipcRenderer.once(IPC.STARTUP_SYNC_COMPLETE, () => cb())

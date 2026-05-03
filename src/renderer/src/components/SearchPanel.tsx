@@ -15,7 +15,7 @@ export default function SearchPanel(): React.ReactElement {
       if (!searchQuery.trim() || !activeNotebookId) { setResults([]); return }
       const nb = notebooks.find((n) => n.id === activeNotebookId)
       if (!nb) return
-      const res = await window.api.search(nb.id, searchQuery)
+      const res = await window.api.search(searchQuery)
       setResults(res)
     }, 200)
     return () => clearTimeout(t)
@@ -24,7 +24,7 @@ export default function SearchPanel(): React.ReactElement {
   async function goTo(r: SearchResult) {
     const nb = notebooks.find((n) => n.id === activeNotebookId)
     if (!nb) return
-    setActivePage(r.pageId)
+    setActivePage(r.pageId ?? null)
     setEditMode(false)
     const page = pages.find((p) => p.id === r.pageId)
     if (page) {
@@ -55,8 +55,8 @@ export default function SearchPanel(): React.ReactElement {
         <ul className="search-results">
           {results.map((r) => (
             <li key={r.pageId} className="search-result" onClick={() => goTo(r)}>
-              <span className="sr-page">{r.pageName}</span>
-              <span className="sr-section">{r.sectionName}</span>
+              <span className="sr-page">{r.name}</span>
+              <span className="sr-section">{r.relativePath}</span>
               <p className="sr-excerpt">{r.excerpt}</p>
             </li>
           ))}

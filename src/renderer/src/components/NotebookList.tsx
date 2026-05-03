@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useAppStore } from '../store/appStore'
 import type { Notebook } from '@shared/types'
 import './NotebookList.css'
