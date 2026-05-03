@@ -58,6 +58,7 @@
       "main": "out/main/index.js"
     },
     "win": {
+      "icon": "resources/icon.png",
       "target": [{ "target": "nsis", "arch": ["x64"] }],
       "artifactName": "${productName}-Setup-${version}.${ext}"
     },
@@ -68,9 +69,7 @@
       "deleteAppDataOnUninstall": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "MY-NOTEBOOK",
-      "installerIcon": "resources/icon.ico",
-      "uninstallerIcon": "resources/icon.ico"
+      "shortcutName": "MY-NOTEBOOK"
     },
     "publish": {
       "provider": "github",

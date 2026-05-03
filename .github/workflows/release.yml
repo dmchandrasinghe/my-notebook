@@ -50,10 +50,12 @@ jobs:
       # Build Vite bundles, then package with electron-builder.
       # CSC_IDENTITY_AUTO_DISCOVERY=false skips code-signing lookup so the
       # build succeeds without a Windows code-signing certificate.
+      # --publish never prevents electron-builder from auto-publishing to
+      # GitHub Releases; the separate "Create GitHub Release" step below
+      # handles that only on version-tag pushes.
       - name: Build & package Windows installer
-        run: npm run dist
+        run: npm run build && electron-builder --win --x64 --publish never
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
       # Always upload installer as a workflow artifact so it can be
