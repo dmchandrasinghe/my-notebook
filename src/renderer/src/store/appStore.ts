@@ -18,6 +18,7 @@ interface AppState {
   setPages: (pages: Page[]) => void
   setActiveSection: (id: string | null) => void
   setActivePage: (id: string | null) => void
+  reorderSections: (fromIdx: number, toIdx: number) => void
 
   // ─── Editor ────────────────────────────────────────────────────────────────
   pageContent: string
@@ -64,6 +65,13 @@ export const useAppStore = create<AppState>((set) => ({
   setPages: (pages) => set({ pages }),
   setActiveSection: (activeSectionId) => set({ activeSectionId }),
   setActivePage: (activePageId) => set({ activePageId }),
+  reorderSections: (fromIdx, toIdx) =>
+    set((s) => {
+      const next = [...s.sections]
+      const [moved] = next.splice(fromIdx, 1)
+      next.splice(toIdx, 0, moved)
+      return { sections: next }
+    }),
 
   pageContent: '',
   isDirty: false,

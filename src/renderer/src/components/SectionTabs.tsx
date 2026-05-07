@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useAppStore } from '../store/appStore'
 import './SectionTabs.css'
 
@@ -17,10 +17,14 @@ export default function SectionTabs(): React.ReactElement {
     notebooks,
     setSections,
     setPages,
+    reorderSections,
   } = useAppStore()
 
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
+  const [draggingIdx, setDraggingIdx] = useState<number | null>(null)
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null)
+  const dragSrcIdx = useRef<number | null>(null)
 
   const nb = notebooks.find((n) => n.id === activeNotebookId)
 
@@ -39,17 +43,55 @@ export default function SectionTabs(): React.ReactElement {
     return SECTION_COLORS[idx % SECTION_COLORS.length]
   }
 
+  function handleDragStart(e: React.DragEvent, idx: number) {
+    dragSrcIdx.current = idx
+    setDraggingIdx(idx)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+
+  function handleDragOver(e: React.DragEvent, idx: number) {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    if (dragOverIdx !== idx) setDragOverIdx(idx)
+  }
+
+  function handleDrop(e: React.DragEvent, idx: number) {
+    e.preventDefault()
+    if (dragSrcIdx.current !== null && dragSrcIdx.current !== idx) {
+      reorderSections(dragSrcIdx.current, idx)
+    }
+    dragSrcIdx.current = null
+    setDraggingIdx(null)
+    setDragOverIdx(null)
+  }
+
+  function handleDragEnd() {
+    dragSrcIdx.current = null
+    setDraggingIdx(null)
+    setDragOverIdx(null)
+  }
+
   return (
     <div className="section-tabs-bar">
       {sections.map((sec, idx) => (
         <button
           key={sec.id}
-          className={`section-tab ${sec.id === activeSectionId ? 'section-tab--active' : ''}`}
+          draggable
+          className={[
+            'section-tab',
+            sec.id === activeSectionId ? 'section-tab--active' : '',
+            draggingIdx === idx ? 'section-tab--dragging' : '',
+            dragOverIdx === idx && draggingIdx !== idx ? 'section-tab--drag-over' : '',
+          ].join(' ').trim()}
           style={{ '--tab-color': colorFor(idx) } as React.CSSProperties}
           onClick={() => {
             setActiveSection(sec.id)
             setActivePage(null)
           }}
+          onDragStart={(e) => handleDragStart(e, idx)}
+          onDragOver={(e) => handleDragOver(e, idx)}
+          onDrop={(e) => handleDrop(e, idx)}
+          onDragEnd={handleDragEnd}
         >
           {sec.name}
         </button>

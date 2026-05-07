@@ -25,6 +25,7 @@ Every time you open the app it silently pulls the latest changes (rebase strateg
 
 - **Notebook browser** — clone any GitHub repo as a notebook with a personal access token
 - **Split-view editor** — Monaco editor on the left, live Markdown preview on the right
+- **Drag-and-drop section tabs** — reorder section tabs by dragging them to any position
 - **Auto-sync** — pull-rebase on startup + periodic push every 12 s
 - **Conflict handling** — remote always wins; conflicted local version is saved as a dated backup
 - **Full-text search** — Lunr.js index across all pages

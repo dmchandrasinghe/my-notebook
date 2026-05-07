@@ -53,3 +53,17 @@
 }
 
 .section-add-btn:hover { opacity: 1; }
+
+.section-tab--dragging {
+  opacity: 0.35;
+  cursor: grabbing;
+}
+
+.section-tab--drag-over {
+  border-left: 2px solid var(--tab-color, var(--color-section-default));
+  padding-left: 14px;
+}
+
+.section-tab[draggable] {
+  cursor: grab;
+}
